@@ -6,7 +6,7 @@ from scipy.sparse import csr_matrix, hstack
 data_path = '/home/ymm/data/talkingdata_data/'
 event_file = 'events.csv'
 agg_app_event_labeled_file = 'agg_app_event_labeled_data.csv'
-agg_app_event_labeled = read_csv(data_path + agg_app_event_labeled_file, index_col='event_id')
+agg_app_event_labeled = pd.read_csv(data_path + agg_app_event_labeled_file, index_col='event_id')
 print 'agg_app_event_labeled is loaded from file with shape:', agg_app_event_labeled.shape
 
 events = pd.read_csv(data_path + event_file, index_col='event_id')
