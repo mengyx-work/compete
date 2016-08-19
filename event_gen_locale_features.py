@@ -1,15 +1,18 @@
 import pandas as pd
 import numpy as np
+import os, sys
 from sklearn.preprocessing import LabelEncoder
 from scipy.sparse import csr_matrix, hstack
 
 data_path = '/home/ymm/data/talkingdata_data/'
-
 tmp_device_feature_file = 'events_time_fea_with_reg_fea_data.csv'
+events_labeled_file = 'events_labeled_data.csv'
+if not os.path.isfile(data_path + tmp_device_feature_file) or not os.path.isfile(data_path + events_labeled_file):
+    sys.exit('failed to find file')
+
 device_feature_df = pd.read_csv(data_path + tmp_device_feature_file, index_col='device_id')
 print 'device_feature_df of time_fea and regular_fea are saved into:', device_feature_file
 
-events_labeled_file = 'events_labeled_data.csv'
 events_labeled = pd.read_csv(data_path + events_labeled_file, index_col='event_id')
 print 'events_labeled is loaded with shape:', events_labeled.shape 
 
