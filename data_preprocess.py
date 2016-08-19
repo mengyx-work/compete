@@ -18,7 +18,6 @@ phone_brand_device_model_file = 'phone_brand_device_model.csv'
 ## load the .csv files
 app_labels = pd.read_csv(data_path + app_labels_file)
 label_categories = pd.read_csv(data_path + label_categories_file)
-app_event = pd.read_csv(data_path + app_event_file, usecols= ['app_id', 'is_active', 'event_id'])
 
 '''
 section to create app_label table from label_categories
@@ -42,15 +41,16 @@ sparse_app_labels.columns = ["app_label_" + str(i) for i in app_label_encoder.cl
 sparse_app_labels['app_id'] = app_id_df.app_id
 
 processed_app_label_file = 'processed_app_label_table.csv'
-pd.to_csv(data_path + processed_app_label_file)
+sparse_app_labels.to_csv(data_path + processed_app_label_file, index=False)
+print 'sparse_app_labels with shape:', sparse_app_labels.shape, 'is saved into file:', processed_app_label_file
+
 
 '''
 process the app_event and join it with newly created sparse_app_labels
 '''
 
-print "app_event before joining:", app_event.shape
-app_event_labeled = pd.merge(app_event, sparse_app_labels, on='app_id', how='left')
-print "app_event after joining:", app_event_labeled.shape
+
+app_event = pd.read_csv(data_path + app_event_file, usecols= ['app_id', 'is_active', 'event_id'])
 
 
 def update_app_event_column_name(column_names, level):
@@ -76,18 +76,46 @@ def split_aggregate_combine(split_column_name, agg_column_name, dataFrame):
             combined_dataFrame = pd.merge(combined_dataFrame, dataFrame_byLevel, how='outer', left_index=True, right_index=True)    
     return combined_dataFrame
 
-agg_app_event_labeled = split_aggregate_combine('is_active', 'event_id', app_event_labeled)
+#print "app_event before joining:", app_event.shape
+#app_event_labeled = pd.merge(app_event, sparse_app_labels, on='app_id', how='left')
+#print "app_event after joining:", app_event_labeled.shape
+#agg_app_event_labeled = split_aggregate_combine('is_active', 'event_id', app_event_labeled)
 
+unique_event_ids = app_event['event_id'].unique()
+batch_num = 50
+agg_app_event_labeled = None
+
+for i in range(batch_num):
+    start_index = int(i / batch_num * len(unique_event_ids))
+    if i != (batch_num - 1):
+        end_index = int((i + 1) / batch_num * len(unique_event_ids))
+    else:
+        end_index = len(unique_event_ids)
+
+    tmp_app_event = app_event.loc[app_event.event_id.isin(unique_event_ids[start_index:end_index])]
+    tmp_app_event_labeled = pd.merge(tmp_app_event, sparse_app_labels, on='app_id', how='left')
+    tmp_agg_app_event_labeled = split_aggregate_combine('is_active', 'event_id', tmp_app_event_labeled)
+    if agg_app_event_labeled is None:
+        agg_app_event_labeled = tmp_agg_app_event_labeled
+    else:
+        print 'for round:', i, 'the current agg_app_event_labeled shape:', agg_app_event_labeled.shape
+        agg_app_event_labeled = pd.concat([agg_app_event_labeled, tmp_agg_app_event_labeled])
+
+print 'agg_app_event_labeled is finished with shape:', agg_app_event_labeled.shape
+
+agg_app_event_labeled_file = 'agg_app_event_labeled_data.csv'
+agg_app_event_labeled.to_csv(data_path + agg_app_event_labeled_file)
+print 'agg_app_event_labeled is saved into file'
 
 
 '''
 process data on the device_id for events table
 '''
-event = pd.read_csv(data_path + event_file, index_col='event_id')
+events = pd.read_csv(data_path + event_file, index_col='event_id')
 events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=True, right_index=True)
 
 print 'the events shape:', events_labeled.shape
-print '#unique device_id:', len(tmp_events_labeled.device_id.unique())
+print '#unique device_id:', len(events_labeled.device_id.unique())
 
 ## convert datetime variable
 events_labeled.timestamp = pd.to_datetime(events_labeled.timestamp)
