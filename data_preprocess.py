@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import seaborn as sb
 from sklearn.preprocessing import LabelEncoder
 from scipy.sparse import csr_matrix, hstack
 
@@ -87,6 +86,7 @@ batch_num = 50
 agg_app_event_labeled = None
 
 for i in range(batch_num):
+    i = 1. * i
     start_index = int(i / batch_num * len(unique_event_ids))
     if i != (batch_num - 1):
         end_index = int((i + 1) / batch_num * len(unique_event_ids))
