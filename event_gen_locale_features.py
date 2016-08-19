@@ -11,7 +11,7 @@ if not os.path.isfile(data_path + tmp_device_feature_file) or not os.path.isfile
     sys.exit('failed to find file')
 
 device_feature_df = pd.read_csv(data_path + tmp_device_feature_file, index_col='device_id')
-print 'device_feature_df of time_fea and regular_fea are saved into:', device_feature_file
+print 'device_feature_df of time_fea and regular_fea are loaded from:', tmp_device_feature_file
 
 events_labeled = pd.read_csv(data_path + events_labeled_file, index_col='event_id')
 print 'events_labeled is loaded with shape:', events_labeled.shape 
