@@ -24,7 +24,7 @@ time_group_func_dict = {'device_time_max' : max, 'device_time_min' : min, 'devic
 events_time_fea = events_labeled[['timestamp', 'device_id']].groupby('device_id').agg(time_group_func_dict.values())
 ## rename the column names
 events_time_fea.columns = time_group_func_dict.keys()
-print 'event level, time feature shape:', events_time_fea.shape
+print 'for events on device_id level, time feature shape:', events_time_fea.shape
 
 ## the time_max and time_min is converted into seconds by reference to the minimal value of timestamp
 ref_timepoint = tmp_events_labeled.timestamp.min()
@@ -102,6 +102,6 @@ device_feature_df = pd.merge(device_feature_df, geo_fea_df, how='outer', left_in
 print 'after merging with location feature shape:', device_feature_df.shape
 
 device_feature_file = 'devide_feature_data.csv'
-pd.to_csv(data_path + device_feature_file)
+device_feature_df.to_csv(data_path + device_feature_file)
 
 
