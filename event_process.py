@@ -4,22 +4,11 @@ from sklearn.preprocessing import LabelEncoder
 from scipy.sparse import csr_matrix, hstack
 
 data_path = '/home/ymm/data/talkingdata_data/'
-event_file = 'events.csv'
-agg_app_event_labeled_file = 'agg_app_event_labeled_data.csv'
-agg_app_event_labeled = pd.read_csv(data_path + agg_app_event_labeled_file, index_col='event_id')
-print 'agg_app_event_labeled is loaded from file with shape:', agg_app_event_labeled.shape
-
-events = pd.read_csv(data_path + event_file, index_col='event_id')
-events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=True, right_index=True)
-print 'the events shape:', events_labeled.shape
-print '#unique device_id:', len(events_labeled.device_id.unique())
-print '#unique event_id:', len(events_labeled.index.unique())
-events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=True, right_index=True)
-
 ## save events_labeled to file
 events_labeled_file = 'events_labeled_data.csv'
-events_labeled.to_csv(data_path + events_labeled_file)
-print 'events_labeled is saved into file:', events_labeled_file
+events_labeled = read_csv(data_path + events_labeled_file, index_col='event_id')
+print 'events_labeled is loaded with shape:', events_labeled.shape 
+
 ## convert datetime variable
 events_labeled.timestamp = pd.to_datetime(events_labeled.timestamp)
 ## drop event_id as index
@@ -30,7 +19,6 @@ time_group_func_dict = {'device_time_max' : max, 'device_time_min' : min, 'devic
 events_time_fea = events_labeled[['timestamp', 'device_id']].groupby('device_id').agg(time_group_func_dict.values())
 ## rename the column names
 events_time_fea.columns = time_group_func_dict.keys()
-print 'for events on device_id level, time feature shape:', events_time_fea.shape
 
 ## the time_max and time_min is converted into seconds by reference to the minimal value of timestamp
 ref_timepoint = events_labeled.timestamp.min()
@@ -46,6 +34,10 @@ events_time_fea['device_time_min'] = events_time_fea.loc[:, 'device_time_min'].a
 events_time_fea['device_time_max'] = events_time_fea.loc[:, 'device_time_max'].apply(ref_with_min_time)
 time_diff_var = 'device_time_diff'
 events_time_fea[time_diff_var] = events_time_fea.loc[:, time_diff_var].apply(convert2seconds)
+print 'for events on device_id level, time feature shape:', events_time_fea.shape
+events_time_fea_file = 'events_time_fea_data.csv'
+events_time_fea.to_csv(data_path + events_time_fea_file)
+print 'events_time_fea is saved into file:', events_time_fea_file
 
 
 '''
@@ -59,7 +51,8 @@ def remove_content(long_list, short_list):
     return long_list
 
 fea2remove = ['timestamp', 'longitude', 'latitude', 'device_id']
-fea_names = tmp_events_labeled.columns.tolist()
+fea_names = events_labeled.columns.tolist()
+print '#unique device_id:', len(events_labeled.device_id.unique())
 fea_list = remove_content(fea_names, fea2remove)
 
 ## generate location-related features from three raw features
@@ -67,7 +60,7 @@ fea_func_dict = {'max' : np.max, 'min' : np.min, 'mean' : np.mean, 'sum' : np.su
 fea_df = None
 for feature_name in fea_list:
     ## derive features from single feature using functions from a dictionary called geo_fea_func_dict
-    tmp_df = agg_column_derive_fea(tmp_events_labeled, 'device_id', feature_name, fea_func_dict)
+    tmp_df = agg_column_derive_fea(events_labeled, 'device_id', feature_name, fea_func_dict)
     ## concatenate all the features together
     if fea_df is None:
         fea_df = tmp_df
@@ -79,6 +72,9 @@ for feature_name in fea_list:
 print 'regular app_category features shape:', fea_df.shape, 'time feature shape:', events_time_fea.shape
 device_feature_df = pd.merge(fea_df, events_time_fea, how='outer', left_index=True, right_index=True)
 print 'after merging, device_feature shape:', device_feature_df.shape
+tmp_device_feature_file = 'events_time_fea_with_reg_fea_data.csv'
+device_feature_df.to_csv(data_path + tmp_device_feature_file)
+
 
 ## separate the location columns
 location_events = events_labeled[['longitude', 'latitude', 'device_id']]
@@ -95,7 +91,7 @@ geo_fea_func_dict = {'max' : np.max, 'min' : np.min, 'mean' : np.mean}
 geo_fea_df = None
 for feature_name in ['longitude', 'latitude', 'approx_dist']:
     ## derive features from single feature using functions from a dictionary called geo_fea_func_dict
-    tmp_df = agg_column_derive_fea(tmp_events_labeled, 'device_id', feature_name, geo_fea_func_dict)
+    tmp_df = agg_column_derive_fea(events_labeled, 'device_id', feature_name, geo_fea_func_dict)
     ## concatenate all the features together
     if geo_fea_df is None:
         geo_fea_df = tmp_df
