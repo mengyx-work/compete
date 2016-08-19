@@ -6,7 +6,7 @@ from scipy.sparse import csr_matrix, hstack
 data_path = '/home/ymm/data/talkingdata_data/'
 event_file = 'events.csv'
 agg_app_event_labeled_file = 'agg_app_event_labeled_data.csv'
-agg_app_event_labeled = read_csv(data_path + agg_app_event_labeled_file, index_col='event_id')
+agg_app_event_labeled = pd.read_csv(data_path + agg_app_event_labeled_file, index_col='event_id')
 print 'agg_app_event_labeled is loaded from file with shape:', agg_app_event_labeled.shape
 
 events = pd.read_csv(data_path + event_file, index_col='event_id')
@@ -25,7 +25,7 @@ time_group_func_dict = {'device_time_max' : max, 'device_time_min' : min, 'devic
 events_time_fea = events_labeled[['timestamp', 'device_id']].groupby('device_id').agg(time_group_func_dict.values())
 ## rename the column names
 events_time_fea.columns = time_group_func_dict.keys()
-print 'event level, time feature shape:', events_time_fea.shape
+print 'for events on device_id level, time feature shape:', events_time_fea.shape
 
 ## the time_max and time_min is converted into seconds by reference to the minimal value of timestamp
 ref_timepoint = events_labeled.timestamp.min()
