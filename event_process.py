@@ -6,7 +6,7 @@ from scipy.sparse import csr_matrix, hstack
 data_path = '/home/ymm/data/talkingdata_data/'
 ## save events_labeled to file
 events_labeled_file = 'events_labeled_data.csv'
-events_labeled = read_csv(data_path + events_labeled_file, index_col='event_id')
+events_labeled = pd.read_csv(data_path + events_labeled_file, index_col='event_id')
 print 'events_labeled is loaded with shape:', events_labeled.shape 
 
 ## convert datetime variable
