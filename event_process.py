@@ -20,6 +20,7 @@ events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=
 events_labeled_file = 'events_labeled_data.csv'
 events_labeled.to_csv(data_path + events_labeled_file)
 print 'events_labeled is saved into file:', events_labeled_file
+
 ## convert datetime variable
 events_labeled.timestamp = pd.to_datetime(events_labeled.timestamp)
 ## drop event_id as index
