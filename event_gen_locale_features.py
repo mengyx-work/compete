@@ -16,6 +16,13 @@ print 'device_feature_df of time_fea and regular_fea are loaded with shape:', de
 events_labeled = pd.read_csv(data_path + events_labeled_file, index_col='event_id')
 print 'events_labeled is loaded with shape:', events_labeled.shape 
 
+
+def agg_column_derive_fea(dataFrame, agg_key_name, column_name, fea_func_dict):
+    derived_df = dataFrame[[agg_key_name, column_name]].groupby(agg_key_name).agg(fea_func_dict.values())
+    derived_df.columns = [column_name + '_' + elem for elem in fea_func_dict.keys()]
+    return derived_df
+
+
 ## separate the location columns
 location_events = events_labeled[['longitude', 'latitude', 'device_id']]
 location_events['approx_dist'] = location_events[['longitude', 'latitude']].apply(lambda x: np.sqrt(x[0]*x[0] + x[1]*x[1]), axis = 1)
