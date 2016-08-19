@@ -5,7 +5,8 @@ from sklearn.preprocessing import LabelEncoder
 from scipy.sparse import csr_matrix, hstack
 
 
-data_path = '/Users/ymm/Downloads/kaggle/talkingdata_data/'
+#data_path = '/Users/ymm/Downloads/kaggle/talkingdata_data/'
+data_path = '/home/ymm/data/talkingdata_data/'
 
 app_labels_file               = 'app_labels.csv'
 app_event_file                = 'app_events.csv'
