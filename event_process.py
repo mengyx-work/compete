@@ -50,12 +50,19 @@ def remove_content(long_list, short_list):
             long_list.remove(elem)
     return long_list
 
+
+def agg_column_derive_fea(dataFrame, agg_key_name, column_name, fea_func_dict):
+    derived_df = dataFrame[[agg_key_name, column_name]].groupby(agg_key_name).agg(fea_func_dict.values())
+    derived_df.columns = [column_name + '_' + elem for elem in fea_func_dict.keys()]
+    return derived_df
+
+
 fea2remove = ['timestamp', 'longitude', 'latitude', 'device_id']
 fea_names = events_labeled.columns.tolist()
 print '#unique device_id:', len(events_labeled.device_id.unique())
 fea_list = remove_content(fea_names, fea2remove)
 
-## generate location-related features from three raw features
+## generate regular features from three raw features
 fea_func_dict = {'max' : np.max, 'min' : np.min, 'mean' : np.mean, 'sum' : np.sum, 'size' : np.size}
 fea_df = None
 for feature_name in fea_list:
@@ -74,17 +81,17 @@ device_feature_df = pd.merge(fea_df, events_time_fea, how='outer', left_index=Tr
 print 'after merging, device_feature shape:', device_feature_df.shape
 tmp_device_feature_file = 'events_time_fea_with_reg_fea_data.csv'
 device_feature_df.to_csv(data_path + tmp_device_feature_file)
+print 'device_feature_df of time_fea and regular_fea are saved into:', device_feature_df
 
+
+
+'''
+'''
 
 ## separate the location columns
 location_events = events_labeled[['longitude', 'latitude', 'device_id']]
 location_events['approx_dist'] = location_events[['longitude', 'latitude']].apply(lambda x: np.sqrt(x[0]*x[0] + x[1]*x[1]), axis = 1)
 
-
-def agg_column_derive_fea(dataFrame, agg_key_name, column_name, fea_func_dict):
-    derived_df = dataFrame[[agg_key_name, column_name]].groupby(agg_key_name).agg(fea_func_dict.values())
-    derived_df.columns = [column_name + '_' + elem for elem in fea_func_dict.keys()]
-    return derived_df
 
 ## generate location-related features from three raw features
 geo_fea_func_dict = {'max' : np.max, 'min' : np.min, 'mean' : np.mean}
