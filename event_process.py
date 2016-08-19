@@ -13,7 +13,7 @@ events = pd.read_csv(data_path + event_file, index_col='event_id')
 events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=True, right_index=True)
 print 'the events shape:', events_labeled.shape
 print '#unique device_id:', len(events_labeled.device_id.unique())
-print '#unique event_id:', len(events_labeled.event_id.unique())
+print '#unique event_id:', len(events_labeled.index.unique())
 events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=True, right_index=True)
 
 ## convert datetime variable
