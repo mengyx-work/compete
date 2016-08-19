@@ -10,9 +10,9 @@ agg_app_event_labeled = pd.read_csv(data_path + agg_app_event_labeled_file, inde
 print 'agg_app_event_labeled is loaded from file with shape:', agg_app_event_labeled.shape
 
 events = pd.read_csv(data_path + event_file, index_col='event_id')
+events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=True, right_index=True)
 print 'the events shape:', events_labeled.shape
 print '#unique device_id:', len(events_labeled.device_id.unique())
-events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=True, right_index=True)
 
 ## convert datetime variable
 events_labeled.timestamp = pd.to_datetime(events_labeled.timestamp)
