@@ -12,6 +12,7 @@ print 'agg_app_event_labeled is loaded from file with shape:', agg_app_event_lab
 events = pd.read_csv(data_path + event_file, index_col='event_id')
 print 'the events shape:', events_labeled.shape
 print '#unique device_id:', len(events_labeled.device_id.unique())
+print '#unique event_id:', len(events_labeled.event_id.unique())
 events_labeled = pd.merge(events, agg_app_event_labeled, how='left', left_index=True, right_index=True)
 
 ## convert datetime variable
@@ -27,7 +28,7 @@ events_time_fea.columns = time_group_func_dict.keys()
 print 'event level, time feature shape:', events_time_fea.shape
 
 ## the time_max and time_min is converted into seconds by reference to the minimal value of timestamp
-ref_timepoint = tmp_events_labeled.timestamp.min()
+ref_timepoint = events_labeled.timestamp.min()
 
 def convert2seconds(x):
     return x.seconds
