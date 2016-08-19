@@ -102,6 +102,6 @@ device_feature_df = pd.merge(device_feature_df, geo_fea_df, how='outer', left_in
 print 'after merging with location feature shape:', device_feature_df.shape
 
 device_feature_file = 'devide_feature_data.csv'
-pd.to_csv(data_path + device_feature_file)
+device_feature_df.to_csv(data_path + device_feature_file)
 
 
