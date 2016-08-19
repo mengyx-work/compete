@@ -13,7 +13,7 @@ if not os.path.isfile(data_path + tmp_device_feature_file) or not os.path.isfile
 device_feature_df = pd.read_csv(data_path + tmp_device_feature_file, index_col='device_id')
 print 'device_feature_df of time_fea and regular_fea are loaded with shape:', device_feature_df.shape
 
-events_labeled = pd.read_csv(data_path + events_labeled_file, index_col='event_id')
+events_labeled = pd.read_csv(data_path + events_labeled_file, usecols=['event_id', 'longitude', 'latitude', 'device_id'], index_col='event_id')
 print 'events_labeled is loaded with shape:', events_labeled.shape 
 
 
@@ -24,7 +24,9 @@ def agg_column_derive_fea(dataFrame, agg_key_name, column_name, fea_func_dict):
 
 
 ## separate the location columns
-location_events = events_labeled[['longitude', 'latitude', 'device_id']]
+#location_events = events_labeled[['longitude', 'latitude', 'device_id']]
+## directly select the columns when reading the csv file
+location_events = events_labeled
 location_events['approx_dist'] = location_events[['longitude', 'latitude']].apply(lambda x: np.sqrt(x[0]*x[0] + x[1]*x[1]), axis = 1)
 
 ## generate location-related features from three raw features
