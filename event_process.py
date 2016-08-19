@@ -81,7 +81,7 @@ device_feature_df = pd.merge(fea_df, events_time_fea, how='outer', left_index=Tr
 print 'after merging, device_feature shape:', device_feature_df.shape
 tmp_device_feature_file = 'events_time_fea_with_reg_fea_data.csv'
 device_feature_df.to_csv(data_path + tmp_device_feature_file)
-print 'device_feature_df of time_fea and regular_fea are saved into:', device_feature_df
+print 'device_feature_df of time_fea and regular_fea are saved into:', device_feature_file
 
 
 
@@ -98,7 +98,7 @@ geo_fea_func_dict = {'max' : np.max, 'min' : np.min, 'mean' : np.mean}
 geo_fea_df = None
 for feature_name in ['longitude', 'latitude', 'approx_dist']:
     ## derive features from single feature using functions from a dictionary called geo_fea_func_dict
-    tmp_df = agg_column_derive_fea(events_labeled, 'device_id', feature_name, geo_fea_func_dict)
+    tmp_df = agg_column_derive_fea(location_events, 'device_id', feature_name, geo_fea_func_dict)
     ## concatenate all the features together
     if geo_fea_df is None:
         geo_fea_df = tmp_df
