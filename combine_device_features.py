@@ -10,6 +10,7 @@ device_feature_file           = 'devide_feature_data.csv'
 
 phone_brand_device_model = pd.read_csv(data_path + phone_brand_device_model_file)
 device_feature_data = pd.read_csv(data_path + device_feature_file, index_col='device_id')
+print 'device_id level derived features are loaded, shape:', device_feature_data.shape
 
 ## drop duplicated device_id row
 phone_brand_device_model.drop_duplicates('device_id', keep='first', inplace=True)
@@ -26,10 +27,11 @@ linear_transform_categorical_column(phone_brand_device_model, 'unique_brand_id')
 
 ## combine the features with label
 gender_age_train = pd.read_csv(data_path + gender_age_train_file, index_col='device_id', usecols=['device_id', 'group'])
-train_data = pd.merge(gender_age_train, phone_brand_device_model, how='left', left_index=True)
-train_data = pd.merge(train_data, device_feature_data, how='left', left_index=True)
-
+train_data = pd.merge(gender_age_train, phone_brand_device_model, how='left')
+train_data = pd.merge(train_data, device_feature_data, how='left')
+print 'combined training data shape:', train_data.shape
 train_file = 'train_data.csv'
 train_data.to_csv(data_path + train_file, index=False)
+print 'combined training data is saved into file'
 
 
