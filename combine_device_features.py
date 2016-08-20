@@ -27,8 +27,8 @@ linear_transform_categorical_column(phone_brand_device_model, 'unique_brand_id')
 
 ## combine the features with label
 gender_age_train = pd.read_csv(data_path + gender_age_train_file, index_col='device_id', usecols=['device_id', 'group'])
-train_data = pd.merge(gender_age_train, phone_brand_device_model, how='left')
-train_data = pd.merge(train_data, device_feature_data, how='left')
+train_data = pd.merge(gender_age_train, phone_brand_device_model, how='left', left_index=True, right_index=True)
+train_data = pd.merge(train_data, device_feature_data, how='left', left_index=True, right_index=True)
 print 'combined training data shape:', train_data.shape
 train_file = 'train_data.csv'
 train_data.to_csv(data_path + train_file, index=False)
