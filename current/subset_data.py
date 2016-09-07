@@ -178,7 +178,7 @@ def load_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_f
     
     ## process categorical data
     remove_single_value_categorical_columns(train_cat, test_cat)
-    encode_categorical_data(train_cat, test_cat)
+    encode_categorical_data(train_cat, test_cat, True)
     print 'finish processing categorical data ...'
 
     ## combine the data and save into csv files
