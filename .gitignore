@@ -1,5 +1,9 @@
 # yml file
 *.yml
+# text/data file
+*.csv
+*.txt
+*.swp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
