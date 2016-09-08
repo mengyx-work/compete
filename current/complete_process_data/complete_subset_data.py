@@ -32,23 +32,24 @@ bin_num = 15 ## number of bins to separate data by start_time
 ## get index grouped by start_time
 tmp_train, tmp_test, bins, bin_names = bosch_functions.create_grouped_index_df(bin_num)
 
+processed_data_path = './bosch_complete_processed_data/'
 
 '''
-## for the NaN start_time rows
 selected_bin_name = '0'
 none_selected_window_num = bin_names[:]
 none_selected_window_num.append(np.NaN)
 none_selected_window_num.remove(selected_bin_name)
 skipped_test_row_num = tmp_test.loc[tmp_test['time_window_num'].isin(none_selected_window_num), 'row_num'].tolist()
 skipped_train_row_num = tmp_train.loc[tmp_train['time_window_num'].isin(none_selected_window_num), 'row_num'].tolist()
-    
-train_data_file = 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_train.csv'
-test_data_file = 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_test.csv'
-bosch_functions.load_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_file, test_data_file)
-'''
+
+train_data_file = processed_data_path + 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_train.csv'
+test_data_file = processed_data_path + 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_test.csv'
+bosch_functions.subset_complete_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_file, test_data_file)
+#'''
 
 
 
+#'''
 ## dict for the yaml file
 subset_data_dict = {}
 
@@ -67,7 +68,7 @@ for selected_bin_name, i in zip(bin_names, range(len(bin_names))):
     
     train_data_file = 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_train.csv'
     test_data_file = 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_test.csv'
-    bosch_functions.load_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_file, test_data_file)
+    bosch_functions.subset_complete_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_file, test_data_file)
     subset_data_dict[selected_bin_name]['train_file'] = train_data_file
     subset_data_dict[selected_bin_name]['test_file'] = test_data_file
 
@@ -84,7 +85,7 @@ subset_data_dict[selected_bin_name]['end_time'] = 'NaN'
 
 train_data_file = 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_train.csv'
 test_data_file = 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_test.csv'
-bosch_functions.load_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_file, test_data_file)
+bosch_functions.subset_complete_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_file, test_data_file)
 subset_data_dict[selected_bin_name]['train_file'] = train_data_file
 subset_data_dict[selected_bin_name]['test_file'] = test_data_file
 
@@ -92,5 +93,6 @@ subset_data_dict[selected_bin_name]['test_file'] = test_data_file
 print subset_data_dict
 with open('subsest_data_dict.yml', 'w') as outfile:
     yaml.dump(subset_data_dict, outfile, default_flow_style=False)
+#'''
 
 
