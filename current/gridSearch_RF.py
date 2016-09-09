@@ -29,5 +29,5 @@ tuning_param_dict = {'n_estimators':range(500, 5000, 500), 'max_depth':range(4, 
 param_dict = const_param_dict.copy()
 param_dict.update(tuning_param_dict)
 
-grid_search_cross_validate_model(train, dep_var_name, RandomForestModel, score_MCC, param_dict, 2, result_file='RF_entropy_GridSearch_2fold_Results.csv')
+grid_search_cross_validate_model(train, dep_var_name, RandomForestModel, score_MCC, param_dict, 4, result_file='RF_entropy_GridSearch_4fold_Results.csv')
 
