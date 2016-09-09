@@ -38,7 +38,7 @@ const_param_dict["val"]                      = False
 #const_param_dict["early_stopping_ratio"]     = 0.2
 
 const_param_dict = list_const_params(const_param_dict)
-tuning_param_dict = {'num_round': [0.01, 0.0075], 'num_round' : [1200, 2400, 3600], 'max_depth' : [3, 4, 5, 6, 7]}
+tuning_param_dict = {'num_round': [0.0075, 0.005], 'num_round' : [2500, 3500, 4500, 5500, 6500], 'max_depth' : [3, 4, 5, 6, 7]}
 param_dict = combine_tuning_params(const_param_dict, tuning_param_dict)
 
 grid_search_cross_validate_model(train, dep_var_name, xgboost_classifier, score_MCC, param_dict, 2, result_file='xgb_GridSearch_2fold_Results.csv', is_xgb_model=True)
