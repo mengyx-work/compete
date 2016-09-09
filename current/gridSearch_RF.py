@@ -22,12 +22,13 @@ data_file = os.path.join(data_path, data_dict[data_index]['train_file'])
 print 'loading data from ', data_file
 train = pd.read_csv(data_file, index_col='Id')
 
-const_param_dict = {'random_state' : 0, 'criterion' : 'entropy', 'n_jobs' : -1}
+const_param_dict = {'random_state' : 0, 'criterion' : 'gini', 'n_jobs' : -1, 'max_depth' : 3}
 const_param_dict = list_const_params(const_param_dict)
-tuning_param_dict = {'n_estimators':range(500, 5000, 500), 'max_depth':range(4, 11)}
+#tuning_param_dict = {'n_estimators':range(400, 4000, 200), 'max_depth':range(4, 8)}
+tuning_param_dict = {'n_estimators' : range(300, 2000, 200)}
 
 param_dict = const_param_dict.copy()
 param_dict.update(tuning_param_dict)
 
-grid_search_cross_validate_model(train, dep_var_name, RandomForestModel, score_MCC, param_dict, 4, result_file='RF_entropy_GridSearch_4fold_Results.csv')
+grid_search_cross_validate_model(train, dep_var_name, RandomForestModel, score_MCC, param_dict, 2, result_file='RF_gini_3_depth_GridSearch_2fold_Results.csv')
 

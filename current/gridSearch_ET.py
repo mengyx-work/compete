@@ -24,10 +24,10 @@ train = pd.read_csv(data_file, index_col='Id')
 
 const_param_dict = {'random_state' : 0, 'criterion' : 'entropy', 'n_jobs' : -1}
 const_param_dict = list_const_params(const_param_dict)
-tuning_param_dict = {'n_estimators':range(500, 5000, 500), 'max_depth':range(4, 11)}
+tuning_param_dict = {'n_estimators':range(200, 1000, 100), 'max_depth':range(3, 6)}
 
 param_dict = const_param_dict.copy()
 param_dict.update(tuning_param_dict)
 
-grid_search_cross_validate_model(train, dep_var_name, ExtraTreeModel, score_MCC, param_dict, 3, result_file='extraTree_entropy_GridSearch_Results.csv')
+grid_search_cross_validate_model(train, dep_var_name, ExtraTreeModel, score_MCC, param_dict, 3, result_file='extraTree_entropy_GridSearch_Results_1.csv')
 
