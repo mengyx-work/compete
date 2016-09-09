@@ -33,10 +33,10 @@ data_file = '/Users/ymm/Downloads/kaggle/bosch/processed_totBins_16_bin_0_train.
 train = pd.read_csv(data_file, index_col='Id')
 
 params = {}
-params["eta"]                      = 0.001
+params["eta"]                      = 0.01
 params["subsample"]                = 0.8
 params["colsample_bytree"]         = 0.8
-params["num_round"]                = 10000
+params["num_round"]                = 500
 params["max_depth"]                = 5
 params["gamma"]                    = 0
 params["metrics"]                  = 'auc'
