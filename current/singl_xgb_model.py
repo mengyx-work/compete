@@ -11,8 +11,8 @@ from utils.validation_tools import cross_validate_model, score_MCC
 
 
 
-project_path = '/mnt/home/ymm/kaggle/compete/current'
-data_path = '/mnt/home/ymm/kaggle/bosch_processed_data'
+project_path = '/home/ymm/kaggle/compete/current'
+data_path = '/home/ymm/kaggle/bosch_data/bosch_processed_data'
 dep_var_name = 'Response'
 
 yaml_file = 'bosch_processed_data_dict.yml'
