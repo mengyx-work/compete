@@ -11,7 +11,10 @@ from utils.validation_tools import score_MCC, grid_search_cross_validate_model, 
 
 
 project_path = '/mnt/home/ymm/kaggle/compete/current'
-data_path = '/mnt/home/ymm/kaggle/bosch_data/bosch_complete_processed_data'
+## fully processed data
+#data_path = '/mnt/home/ymm/kaggle/bosch_data/bosch_complete_processed_data'
+## encoded only data
+data_path = '/mnt/home/ymm/kaggle/bosch_data/bosch_processed_data' 
 
 yaml_file = 'bosch_processed_data_dict.yml'
 with open(os.path.join(project_path, yaml_file), 'r') as yml_stream:
@@ -38,8 +41,8 @@ const_param_dict["val"]                      = False
 #const_param_dict["early_stopping_ratio"]     = 0.2
 
 const_param_dict = list_const_params(const_param_dict)
-tuning_param_dict = {'num_round': [0.0075, 0.005], 'num_round' : [2500, 3500, 4500, 5500, 6500], 'max_depth' : [3, 4, 5, 6, 7]}
+tuning_param_dict = {'num_round': [0.0075, 0.005, 0.0025], 'num_round' : [1500, 2500, 3500, 4500, 5500, 6500], 'max_depth' : [3, 4, 5, 6, 7]}
 param_dict = combine_tuning_params(const_param_dict, tuning_param_dict)
 
-grid_search_cross_validate_model(train, dep_var_name, xgboost_classifier, score_MCC, param_dict, 2, result_file='xgb_GridSearch_2fold_Results.csv', is_xgb_model=True)
+grid_search_cross_validate_model(train, dep_var_name, xgboost_classifier, score_MCC, param_dict, 2, result_file='xgb_raw_data_GridSearch_2fold_Results.csv', is_xgb_model=True)
 
