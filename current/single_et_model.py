@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os, sys, time
 import yaml
 import cPickle as pickle
@@ -20,14 +21,11 @@ data_yaml_file   = 'bosch_processed_data_dict.yml'
 
 train = load_processed_bosch_data(data_path, project_yml_path, data_yaml_file, data_index='0')
 print train.shape
-tmp_train = train.copy()
 train_label = train[dep_var_name]
+tmp_train = train.copy()
 tmp_train.drop(dep_var_name, axis=1, inplace=True)
 
 model_params =  {'random_state' : 0, 'n_estimators' : 500, 'max_depth' : 4, 'criterion' : 'entropy', 'n_jobs' : -1}
 model = ExtraTreeModel(model_params)
 model.fit(tmp_train, train_label)
 res = model.predict(tmp_train)
-print res
-
-
