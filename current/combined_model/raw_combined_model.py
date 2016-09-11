@@ -21,12 +21,14 @@ def auto_fill_model_dicts(models, const_params, list_param_dict, model_type, mod
             model_params[key] = param
             model_dict['model_params'] = model_params
             model_dict['model_type'] = model_type
-            print model_dict
+            print 'build a {} model using params: {}'.format(model_type, model_params)
             models[model_index] = model_dict
+
 
 const_params = {'random_state' : 9999, 'n_estimators' : 500, 'max_depth' : 4, 'criterion' : 'entropy', 'n_jobs' : -1}
 list_param_dict = {}
-list_param_dict['random_state'] = range(0, 10000, 100)
+#list_param_dict['random_state'] = range(0, 10000, 100)
+list_param_dict['random_state'] = range(0, 3)
 
 auto_fill_model_dicts(models, const_params, list_param_dict, 'ExtraTree')
 

@@ -5,14 +5,14 @@ import cPickle as pickle
 
 sys.path.append('/home/ymm/kaggle/xgboost_hyperopt')
 from utils.bosch_functions import load_processed_bosch_data
-from utils.models import train_combined_model, predict_combined_model
+from utils.models import CombinedModel
 from utils.validation_tools import score_MCC, create_validation_index
 
+## params for the combined model
 dep_var_name = 'Response'
 raw_models_yaml_file = 'raw_combined_models.yml'
 trained_model_yaml_file = 'trained_combined_model.yml'
 project_path = '/mnt/home/ymm/kaggle/compete/current/combined_model'
-#project_path = '/Users/ymm/Google_Drive/Kaggle/compete/current/combined_model'
 trained_model_yaml_file = 'trained_combined_model.yml'
 
 ## load training data
@@ -25,10 +25,14 @@ valid_data = train.ix[valid_index]
 train      = train.ix[train_index]
 
 ## train the comined model
-train_combined_model(train, dep_var_name, raw_models_yaml_file, project_path, trained_model_yaml_file)
+combined_model_params = {}
+combined_model_params['raw_models_yaml_file'] = raw_models_yaml_file
+combined_model_params['project_path'] = project_path
+combined_model_params['models_yaml_file'] = trained_model_yaml_file
 
-pred_df = predict_combined_model(valid_data, project_path, trained_model_yaml_file, score_MCC, dep_var_name)
-
+combined_model = CombinedModel(combined_model_params)
+combined_model.fit(train, dep_var_name)
+pred_df = combined_model.predict(valid_data)
 pred_df.to_csv('tmp.csv')
 
 
