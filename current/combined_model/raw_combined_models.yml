@@ -1,8 +1,800 @@
 0:
-  model_params: {criterion: entropy, max_depth: 4, n_estimators: 500, n_jobs: -1,
-    random_state: 0}
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 0
   model_type: ExtraTree
 1:
-  model_params: {criterion: entropy, max_depth: 4, n_estimators: 500, n_jobs: -1,
-    random_state: 100}
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 100
+  model_type: ExtraTree
+2:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 200
+  model_type: ExtraTree
+3:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 300
+  model_type: ExtraTree
+4:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 400
+  model_type: ExtraTree
+5:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 500
+  model_type: ExtraTree
+6:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 600
+  model_type: ExtraTree
+7:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 700
+  model_type: ExtraTree
+8:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 800
+  model_type: ExtraTree
+9:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 900
+  model_type: ExtraTree
+10:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1000
+  model_type: ExtraTree
+11:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1100
+  model_type: ExtraTree
+12:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1200
+  model_type: ExtraTree
+13:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1300
+  model_type: ExtraTree
+14:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1400
+  model_type: ExtraTree
+15:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1500
+  model_type: ExtraTree
+16:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1600
+  model_type: ExtraTree
+17:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1700
+  model_type: ExtraTree
+18:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1800
+  model_type: ExtraTree
+19:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 1900
+  model_type: ExtraTree
+20:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2000
+  model_type: ExtraTree
+21:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2100
+  model_type: ExtraTree
+22:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2200
+  model_type: ExtraTree
+23:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2300
+  model_type: ExtraTree
+24:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2400
+  model_type: ExtraTree
+25:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2500
+  model_type: ExtraTree
+26:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2600
+  model_type: ExtraTree
+27:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2700
+  model_type: ExtraTree
+28:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2800
+  model_type: ExtraTree
+29:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 2900
+  model_type: ExtraTree
+30:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3000
+  model_type: ExtraTree
+31:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3100
+  model_type: ExtraTree
+32:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3200
+  model_type: ExtraTree
+33:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3300
+  model_type: ExtraTree
+34:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3400
+  model_type: ExtraTree
+35:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3500
+  model_type: ExtraTree
+36:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3600
+  model_type: ExtraTree
+37:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3700
+  model_type: ExtraTree
+38:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3800
+  model_type: ExtraTree
+39:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 3900
+  model_type: ExtraTree
+40:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4000
+  model_type: ExtraTree
+41:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4100
+  model_type: ExtraTree
+42:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4200
+  model_type: ExtraTree
+43:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4300
+  model_type: ExtraTree
+44:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4400
+  model_type: ExtraTree
+45:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4500
+  model_type: ExtraTree
+46:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4600
+  model_type: ExtraTree
+47:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4700
+  model_type: ExtraTree
+48:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4800
+  model_type: ExtraTree
+49:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 4900
+  model_type: ExtraTree
+50:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5000
+  model_type: ExtraTree
+51:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5100
+  model_type: ExtraTree
+52:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5200
+  model_type: ExtraTree
+53:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5300
+  model_type: ExtraTree
+54:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5400
+  model_type: ExtraTree
+55:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5500
+  model_type: ExtraTree
+56:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5600
+  model_type: ExtraTree
+57:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5700
+  model_type: ExtraTree
+58:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5800
+  model_type: ExtraTree
+59:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 5900
+  model_type: ExtraTree
+60:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6000
+  model_type: ExtraTree
+61:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6100
+  model_type: ExtraTree
+62:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6200
+  model_type: ExtraTree
+63:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6300
+  model_type: ExtraTree
+64:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6400
+  model_type: ExtraTree
+65:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6500
+  model_type: ExtraTree
+66:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6600
+  model_type: ExtraTree
+67:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6700
+  model_type: ExtraTree
+68:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6800
+  model_type: ExtraTree
+69:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 6900
+  model_type: ExtraTree
+70:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7000
+  model_type: ExtraTree
+71:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7100
+  model_type: ExtraTree
+72:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7200
+  model_type: ExtraTree
+73:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7300
+  model_type: ExtraTree
+74:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7400
+  model_type: ExtraTree
+75:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7500
+  model_type: ExtraTree
+76:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7600
+  model_type: ExtraTree
+77:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7700
+  model_type: ExtraTree
+78:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7800
+  model_type: ExtraTree
+79:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 7900
+  model_type: ExtraTree
+80:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8000
+  model_type: ExtraTree
+81:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8100
+  model_type: ExtraTree
+82:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8200
+  model_type: ExtraTree
+83:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8300
+  model_type: ExtraTree
+84:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8400
+  model_type: ExtraTree
+85:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8500
+  model_type: ExtraTree
+86:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8600
+  model_type: ExtraTree
+87:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8700
+  model_type: ExtraTree
+88:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8800
+  model_type: ExtraTree
+89:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 8900
+  model_type: ExtraTree
+90:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9000
+  model_type: ExtraTree
+91:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9100
+  model_type: ExtraTree
+92:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9200
+  model_type: ExtraTree
+93:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9300
+  model_type: ExtraTree
+94:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9400
+  model_type: ExtraTree
+95:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9500
+  model_type: ExtraTree
+96:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9600
+  model_type: ExtraTree
+97:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9700
+  model_type: ExtraTree
+98:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9800
+  model_type: ExtraTree
+99:
+  model_params:
+    criterion: entropy
+    max_depth: 4
+    n_estimators: 500
+    n_jobs: -1
+    random_state: 9900
   model_type: ExtraTree
