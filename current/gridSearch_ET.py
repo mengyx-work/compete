@@ -22,12 +22,13 @@ data_file = os.path.join(data_path, data_dict[data_index]['train_file'])
 print 'loading data from ', data_file
 train = pd.read_csv(data_file, index_col='Id')
 
-const_param_dict = {'random_state' : 0, 'criterion' : 'entropy', 'n_jobs' : -1}
+#const_param_dict = {'random_state' : 0, 'criterion' : 'entropy', 'n_jobs' : -1}
+const_param_dict = {'criterion' : 'entropy', 'n_jobs' : -1, 'n_estimators' : 500}
 const_param_dict = list_const_params(const_param_dict)
-tuning_param_dict = {'n_estimators':range(200, 1000, 100), 'max_depth':range(3, 6)}
+tuning_param_dict = {'random_state': range(0, 10), 'max_depth':[4, 7]}
 
 param_dict = const_param_dict.copy()
 param_dict.update(tuning_param_dict)
 
-grid_search_cross_validate_model(train, dep_var_name, ExtraTreeModel, score_MCC, param_dict, 3, result_file='extraTree_entropy_GridSearch_Results_1.csv')
+grid_search_cross_validate_model(train, dep_var_name, ExtraTreeModel, score_MCC, param_dict, 2, result_file='extraTree_entropy_2_fold_GridSearch_Results_seed.csv')
 

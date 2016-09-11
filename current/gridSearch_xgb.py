@@ -30,7 +30,7 @@ const_param_dict = {}
 const_param_dict["eta"]                      = 0.001
 #const_param_dict["subsample"]                = 0.8
 #const_param_dict["colsample_bytree"]         = 0.8
-const_param_dict["num_round"]                = 10000
+const_param_dict["num_round"]                = 5000
 const_param_dict["max_depth"]                = 5
 const_param_dict["gamma"]                    = 0
 const_param_dict["metrics"]                  = 'auc'
@@ -41,8 +41,9 @@ const_param_dict["val"]                      = False
 #const_param_dict["early_stopping_ratio"]     = 0.2
 
 const_param_dict = list_const_params(const_param_dict)
-tuning_param_dict = {'num_round': [0.0075, 0.005, 0.0025], 'num_round' : [1500, 2500, 3500, 4500, 5500, 6500], 'max_depth' : [3, 4, 5, 6, 7]}
+#tuning_param_dict = {'num_round': [0.0075, 0.005, 0.0025], 'num_round' : [1500, 2500, 3500, 4500, 5500, 6500], 'max_depth' : [3, 4, 5, 6, 7]}
+tuning_param_dict = {'subsample': [1.0, 0.9, 0.8, 0.7, 0.6], 'colsample_bytree' : [1.0, 0.9, 0.8, 0.7, 0.6], 'max_depth' : [4, 5, 6], 'seed' : [0, 999]}
 param_dict = combine_tuning_params(const_param_dict, tuning_param_dict)
 
-grid_search_cross_validate_model(train, dep_var_name, xgboost_classifier, score_MCC, param_dict, 2, result_file='xgb_raw_data_GridSearch_2fold_Results.csv', is_xgb_model=True)
+grid_search_cross_validate_model(train, dep_var_name, xgboost_classifier, score_MCC, param_dict, 2, result_file='xgb_raw_data_subsample_GridSearch_2fold_Results.csv', is_xgb_model=True)
 
