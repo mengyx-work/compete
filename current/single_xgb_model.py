@@ -5,19 +5,20 @@ import yaml
 from sklearn.metrics import matthews_corrcoef
 
 ## linux path
-#sys.path.append('/home/ymm/kaggle/xgboost_hyperopt')
+sys.path.append('/home/ymm/kaggle/xgboost_hyperopt')
 ## Mac path
-sys.path.append('/Users/ymm/Google_Drive/dev/xgboost_hyperopt')
-
+#sys.path.append('/Users/ymm/Google_Drive/dev/xgboost_hyperopt')
 import utils
 from utils.wrapped_xgboost import xgboost_classifier
 from utils.validation_tools import cross_validate_model, score_MCC
+from utils.bosch_functions import load_processed_bosch_data
 
 
 
 dep_var_name = 'Response'
 
 '''
+## old way to laod data based on the yaml file content
 project_path = '/home/ymm/kaggle/compete/current'
 data_path = '/home/ymm/kaggle/bosch_data/bosch_processed_data'
 
@@ -29,8 +30,18 @@ data_index = '0'
 data_file = os.path.join(data_path, data_dict[data_index]['train_file'])
 print 'loading data from ', data_file
 '''
+
+'''
+## load data in local machine
 data_file = '/Users/ymm/Downloads/kaggle/bosch/processed_totBins_16_bin_0_train.csv'
 train = pd.read_csv(data_file, index_col='Id')
+'''
+
+## load training data
+project_yml_path = '/mnt/home/ymm/kaggle/compete/current'
+data_path = '/mnt/home/ymm/kaggle/bosch_data/bosch_complete_processed_data'
+data_yaml_file = 'bosch_processed_data_dict.yml'
+train = load_processed_bosch_data(data_path, project_yml_path, data_yaml_file, data_index='0')
 
 params = {}
 params["eta"]                      = 0.01

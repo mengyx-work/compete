@@ -30,5 +30,5 @@ tuning_param_dict = {'random_state': range(0, 10), 'max_depth':[4, 7]}
 param_dict = const_param_dict.copy()
 param_dict.update(tuning_param_dict)
 
-grid_search_cross_validate_model(train, dep_var_name, ExtraTreeModel, score_MCC, param_dict, 2, result_file='extraTree_entropy_2_fold_GridSearch_Results_seed.csv')
+grid_search_cross_validate_model(train, dep_var_name, ExtraTreeModel, score_MCC, param_dict, 3, result_file='extraTree_entropy_3_fold_GridSearch_Results_seed.csv')
 
