@@ -89,7 +89,7 @@ subset_data_dict[selected_bin_name]['test_file'] = test_data_file
 
 ## write the information to yml file
 print subset_data_dict
-with open('complete_subsest_data_{}_bins_dict.yml'.format(bin_num), 'w') as outfile:
+with open('complete_subset_data_{}_bins_dict.yml'.format(bin_num), 'w') as outfile:
     yaml.dump(subset_data_dict, outfile, default_flow_style=False)
 #'''
 
