@@ -41,17 +41,17 @@ params["val"]                      = False ## whether create a valid dataset
 dep_var_name = 'Response'
 data_path = '/mnt/home/ymm/kaggle/bosch_data/bosch_processed_data'
 project_path = '/mnt/home/ymm/kaggle/compete/current'
-
 yaml_file = 'bosch_processed_data_dict.yml'
 with open(os.path.join(project_path, yaml_file), 'r') as yml_stream:
         data_dict = yaml.load(yml_stream)
+
 
 data_index = '0'
 data_file = os.path.join(data_path, data_dict[data_index]['train_file'])
 print 'loading data from ', data_file
 data = pd.read_csv(data_file, index_col='Id')
 
-
+cv_fold_num = 2
 hyperopt = hyperopt_xgboost(data, dep_var_name,
                             tuning_params = tuning_params,
                             const_params  = params,
