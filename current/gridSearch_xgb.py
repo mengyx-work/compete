@@ -21,7 +21,7 @@ with open(os.path.join(project_path, yaml_file), 'r') as yml_stream:
     data_dict = yaml.load(yml_stream)
 
 dep_var_name = 'Response'
-data_index= '0'
+data_index= 'NaN'
 data_file = os.path.join(data_path, data_dict[data_index]['train_file'])
 print 'loading data from ', data_file
 train = pd.read_csv(data_file, index_col='Id')
