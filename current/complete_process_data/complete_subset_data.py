@@ -20,13 +20,12 @@ test_date_file   = 'test_date.csv'
 
 sample_submission_file   = 'sample_submission.csv'
 
+#pickle_column_names_file = data_path + 'cat_col_names.pkl'
+#start_time_column_name = 'L0_S0_D1'
+#id_column_name = 'Id'
+#dep_var_name = 'Response'
 
-
-pickle_column_names_file = data_path + 'cat_col_names.pkl'
-start_time_column_name = 'L0_S0_D1'
-id_column_name = 'Id'
-dep_var_name = 'Response'
-bin_num = 15 ## number of bins to separate data by start_time
+bin_num = 5 ## number of bins to separate data by start_time
 
 
 ## get index grouped by start_time
@@ -47,7 +46,6 @@ train_data_file = processed_data_path + 'processed_totBins_' + str(len(bin_names
 test_data_file = processed_data_path + 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_test.csv'
 bosch_functions.subset_complete_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_file, test_data_file)
 #'''
-
 
 
 #'''
@@ -73,7 +71,6 @@ for selected_bin_name, i in zip(bin_names, range(len(bin_names))):
     subset_data_dict[selected_bin_name]['train_file'] = train_data_file
     subset_data_dict[selected_bin_name]['test_file'] = test_data_file
 
-
 ## for the NaN start_time rows
 print 'for bin: NaN', 
 none_selected_window_num = bin_names[:]
@@ -84,15 +81,15 @@ subset_data_dict[selected_bin_name] = {}
 subset_data_dict[selected_bin_name]['start_time'] = 'NaN'
 subset_data_dict[selected_bin_name]['end_time'] = 'NaN'
 
-train_data_file = 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_train.csv'
-test_data_file = 'processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_test.csv'
+train_data_file = 'complete_processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_train.csv'
+test_data_file  = 'complete_processed_totBins_' + str(len(bin_names)+1) + '_bin_' + selected_bin_name + '_test.csv'
 bosch_functions.subset_complete_data_by_index(skipped_train_row_num, skipped_test_row_num, train_data_file, test_data_file)
 subset_data_dict[selected_bin_name]['train_file'] = train_data_file
 subset_data_dict[selected_bin_name]['test_file'] = test_data_file
 
 ## write the information to yml file
 print subset_data_dict
-with open('subsest_data_dict.yml', 'w') as outfile:
+with open('complete_subsest_data_{}_bins_dict.yml'.format(bin_num), 'w') as outfile:
     yaml.dump(subset_data_dict, outfile, default_flow_style=False)
 #'''
 
