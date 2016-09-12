@@ -32,9 +32,10 @@ bin_num = 15 ## number of bins to separate data by start_time
 ## get index grouped by start_time
 tmp_train, tmp_test, bins, bin_names = bosch_functions.create_grouped_index_df(bin_num)
 
-processed_data_path = './bosch_complete_processed_data/'
 
 '''
+processed_data_path = './bosch_complete_processed_data/'
+
 selected_bin_name = '0'
 none_selected_window_num = bin_names[:]
 none_selected_window_num.append(np.NaN)
