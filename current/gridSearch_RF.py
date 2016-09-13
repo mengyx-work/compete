@@ -14,6 +14,8 @@ from utils.bosch_functions import load_processed_bosch_data
 #data_path = '/mnt/home/ymm/kaggle/bosch_data/bosch_complete_processed_data'
 #yaml_file = 'bosch_processed_data_dict.yml'
 
+dep_var_name = 'Response'
+
 ## 6 bins data
 project_path = '/home/ymm/kaggle/compete/current/model_6_bins_data'
 data_path = '/home/ymm/kaggle/bosch_data/bosch_complete_processed_6_bins_data'
