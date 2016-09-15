@@ -22,7 +22,7 @@ data_path = '/home/ymm/kaggle/bosch_data/bosch_complete_processed_6_bins_data'
 data_yaml_file = 'complete_subset_data_6_bins_dict.yml'
 #'''
 
-train = load_processed_bosch_data(data_path, project_yml_path, data_yaml_file, data_index='0')
+train = load_processed_bosch_data(data_path, project_yml_path, data_yaml_file, data_index='NaN')
 print train.shape
 train_index,valid_index = create_validation_index(train, 0.4, dep_var_name, True)  
 valid_data  = train.ix[valid_index]
@@ -47,7 +47,7 @@ params["val"]                      = False
 #params["early_stopping_ratio"]     = 0.2
 
 #model = XgboostModel(params)
-model = xgboost_classifier(label_name = dep_var_name, params = params, model_file='large_data_bin_0_xgb_model')
+model = xgboost_classifier(label_name = dep_var_name, params = params, model_file='large_data_bin_NaN_xgb_model')
 model.fit(train, dep_var_name)
 valid_result = model.predict(valid_data)
 print 'the MCC score:', score_MCC(valid_label, valid_result)
