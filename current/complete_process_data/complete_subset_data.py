@@ -25,7 +25,7 @@ sample_submission_file   = 'sample_submission.csv'
 #id_column_name = 'Id'
 #dep_var_name = 'Response'
 
-bin_num = 2 ## number of bins to separate data by start_time
+bin_num = 1 ## number of bins to separate data by start_time
 
 
 ## get index grouped by start_time
@@ -92,5 +92,4 @@ print subset_data_dict
 with open('complete_subset_data_{}_bins_dict.yml'.format(bin_num), 'w') as outfile:
     yaml.dump(subset_data_dict, outfile, default_flow_style=False)
 #'''
-
 
