@@ -56,14 +56,15 @@ bin_NaN_selected_col_names = collect_feature_names(bin_NaN_data_path, 'feature',
 selected_cat_col_names =  train_cat_cols.columns[train_cat_cols.columns.isin(bin_NaN_selected_col_names)].tolist()
 selected_num_col_names =  train_num_cols.columns[train_num_cols.columns.isin(bin_NaN_selected_col_names)].tolist()
 
-selected_cat_col_names.extend([id_column_name, dep_var_name])
+selected_cat_col_names.extend([id_column_name])
 selected_num_col_names.extend([id_column_name, dep_var_name])
 
 start_time = time.time()
 train_cat  = pd.read_csv(join(data_path, train_cat_file),  index_col='Id', skiprows=skipped_train_row_num, usecols=selected_cat_col_names)
 test_cat   = pd.read_csv(join(data_path, test_cat_file),   index_col='Id', skiprows=skipped_train_row_num, usecols=selected_cat_col_names)
 train_num  = pd.read_csv(join(data_path, train_num_file),  index_col='Id', skiprows=skipped_train_row_num, usecols=selected_num_col_names)
-test_num   = pd.read_csv(join(data_path, test_num_file),   index_col='Id', skiprows=skipped_train_row_num, usecols=selected_num_col_names)
+test_num   = pd.read_csv(join(data_path, test_num_file),   index_col='Id', skiprows=skipped_train_row_num, usecols=selected_num_col_names.remove(dep_var_name))
+print 'training numerical data shape:', train_num.shape, 'categorical data shape:', train_cat.shape
 print 'finish reading data by columns selected using xgboost feature importance, using {} seconds.'.format(round(time.time() - start_time, 2))
 
 start_time = time.time()
@@ -79,9 +80,14 @@ oneHot_train_cat = oneHot_combined_cat.ix[train_index]
 oneHot_test_cat  = oneHot_combined_cat.ix[test_index]
 print 'finish OneHot encoding the categorical columns, using {} seconds'.format(round(time.time() - start_time, 2))
 
+start_time = time.time()
 combined_train = pd.merge(oneHot_train_cat, train_num, how='outer', left_index=True, right_index=True)
 combined_test  = pd.merge(oneHot_test_cat,  test_num,  how='outer', left_index=True, right_index=True)
+print 'finish merging dataFrame using {} seconds'.format(round(time.time() - start_time, 2))
 
+
+start_time = time.time()
 combined_train.to_csv('bosch_processed_selected_NaN_train_data.csv')
 combined_test.to_csv('bosch_processed_selected_NaN_test_data.csv')
+print 'finish saving .csv files using {} seconds'.format(round(time.time() - start_time, 2))
 print 'finish generating the processed and selected NaN data...'
