@@ -38,7 +38,7 @@ params = {}
 params["eta"]                      = 0.0075
 params["subsample"]                = 0.8
 params["colsample_bytree"]         = 0.8
-params["num_round"]                = 15
+params["num_round"]                = 5
 params["max_depth"]                = 5
 params["gamma"]                    = 0
 params["metrics"]                  = 'auc'
@@ -56,13 +56,13 @@ models[model_index] = model_dict
 model_index += 1
 model_dict = {}
 model_dict['model_type'] = 'ExtraTree'
-model_dict['model_params'] = {'random_state' : 100, 'n_estimators' : 500, 'max_depth' : 4, 'criterion' : 'entropy', 'n_jobs' : -1}
+model_dict['model_params'] = {'random_state' : 100, 'n_estimators' : 50, 'max_depth' : 4, 'criterion' : 'entropy', 'n_jobs' : -1}
 models[model_index] = model_dict
 
 model_index += 1
 model_dict = {}
 model_dict['model_type'] = 'RandomForest'
-model_dict['model_params'] = {'random_state' : 100, 'n_estimators' : 500, 'max_depth' : 4, 'criterion' : 'entropy', 'n_jobs' : -1}
+model_dict['model_params'] = {'random_state' : 100, 'n_estimators' : 50, 'max_depth' : 4, 'criterion' : 'entropy', 'n_jobs' : -1}
 models[model_index] = model_dict
 
 
