@@ -31,10 +31,9 @@ none_selected_window_num = bin_names[:]
 skipped_test_row_num = tmp_test.loc[tmp_test['time_window_num'].isin(none_selected_window_num), 'row_num'].tolist()
 skipped_train_row_num = tmp_train.loc[tmp_train['time_window_num'].isin(none_selected_window_num), 'row_num'].tolist()
 
-train_cat_cols = pd.read_csv(join(data_path, train_cat_file), index_col=id_column_name, nrows=0)
+train_cat_cols  = pd.read_csv(join(data_path, train_cat_file), index_col=id_column_name, nrows=0)
 train_date_cols = pd.read_csv(join(data_path, train_date_file), index_col=id_column_name, nrows=0)
-train_num_cols = pd.read_csv(join(data_path, train_num_file), index_col=id_column_name, nrows=0)
-
+train_num_cols  = pd.read_csv(join(data_path, train_num_file), index_col=id_column_name, nrows=0)
 
 ### section to obtain the feature impotance from xgboost model
 bin_NaN_data_path = '/home/ymm/kaggle/bosch/data_2_bins_xgb_combined_models/data_bin_NaN_models'
@@ -51,13 +50,14 @@ def collect_feature_names(data_path, fea_name='feature', thres_name = None, thre
             
     return feature_names
 
+## collect feature names based on the fscore
 bin_NaN_selected_col_names = collect_feature_names(bin_NaN_data_path, 'feature', 'fscore', 10)
 
 selected_cat_col_names =  train_cat_cols.columns[train_cat_cols.columns.isin(bin_NaN_selected_col_names)].tolist()
 selected_num_col_names =  train_num_cols.columns[train_num_cols.columns.isin(bin_NaN_selected_col_names)].tolist()
 
-selected_cat_col_names.append(id_column_name)
-selected_num_col_names.append(id_column_name)
+selected_cat_col_names.extend([id_column_name, dep_var_name])
+selected_num_col_names.extend([id_column_name, dep_var_name])
 
 start_time = time.time()
 train_cat  = pd.read_csv(join(data_path, train_cat_file),  index_col='Id', skiprows=skipped_train_row_num, usecols=selected_cat_col_names)
