@@ -27,7 +27,7 @@ bin_num = 1 ## number of bins to separate data by start_time
 tmp_train, tmp_test, bins, bin_names = bosch_functions.create_grouped_index_df(bin_num)
 
 ## create the skipped row numbers
-none_selected_window_num = bin_names[:]
+none_selected_window_num = [np.NaN]
 skipped_test_row_num = tmp_test.loc[tmp_test['time_window_num'].isin(none_selected_window_num), 'row_num'].tolist()
 skipped_train_row_num = tmp_train.loc[tmp_train['time_window_num'].isin(none_selected_window_num), 'row_num'].tolist()
 
