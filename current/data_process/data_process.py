@@ -195,7 +195,8 @@ def creat_non_selected_window_num(bin_num, select_bin = '0'):
     
 none_selected_window_num = creat_non_selected_window_num(bin_num, '0')
 ## select NaN data only
-none_selected_window_num = ['0']
+#none_selected_window_num = ['0']
+
 skipped_test_row_num = tmp_test.loc[tmp_test['time_window_num'].isin(none_selected_window_num), 'row_num'].tolist()
 skipped_train_row_num = tmp_train.loc[tmp_train['time_window_num'].isin(none_selected_window_num), 'row_num'].tolist()
 
@@ -265,8 +266,75 @@ combined_train_cat = pd.concat([train_cat, train_levelFeatures], axis=1)
 combined_test_cat  = pd.concat([test_cat, test_levelFeatures], axis=1)
 print 'combined train categorical feature shape: {}, combined test categorical features shape: {}'.format(combined_train_cat.shape, combined_test_cat.shape)
 
+
+
+#### numerical feature engineering work
 train_num_Basics = NumericalFeatureEngineering(train_num)
 test_num_Basics = NumericalFeatureEngineering(test_num)
 
 combined_train_num = pd.concat([train_num, train_num_Basics], axis=1)
 combined_test_num  = pd.concat([test_num, test_num_Basics], axis=1)
+print 'combined train numerical feature shape: {}, combined test numerical features shape: {}'.format(combined_train_num.shape, combined_test_num.shape)
+
+
+
+start_time = time.time()
+## normalized date columns
+train_dat_Norm = train_dat.apply(getRelativeTimeColumns, axis=1)
+test_dat_Norm  = test_dat.apply(getRelativeTimeColumns, axis=1)
+## basic features from tmp_train_dat
+train_dat_Basics = BasicDate_FeatureEngineering(train_dat)
+test_dat_Basics  = BasicDate_FeatureEngineering(test_dat)
+
+encoder = preprocessing.LabelEncoder()
+column_names = train_dat.columns.tolist()
+column_names.append('NaN')
+encoder.fit(column_names)
+    
+train_dat_TimeDiff = train_dat.apply(getTimeChangeColumns, axis=1)
+test_dat_TimeDiff  = train_dat.apply(getTimeChangeColumns, axis=1)
+TimeDiff_ColumnNames = ['time_diff_start_col', 'time_diff_end_col', 'time_diff_value', 
+                        'time_ratio_value', 'first_time_value', 'last_time_value', 'first_date_value']
+train_dat_TimeDiff.columns = TimeDiff_ColumnNames                   
+test_dat_TimeDiff.columns = TimeDiff_ColumnNames
+
+for column in ['time_diff_start_col', 'time_diff_end_col']:
+    train_dat_TimeDiff[column].fillna('NaN', inplace=True)
+    train_dat_TimeDiff[column] = encoder.transform(train_dat_TimeDiff[column])  
+
+    test_dat_TimeDiff[column].fillna('NaN', inplace=True)
+    test_dat_TimeDiff[column] = encoder.transform(test_dat_TimeDiff[column])  
+   
+
+
+## section to create timeStep features
+unique_value_counts = 10
+timeStep_columnNames = []
+column_name_columns = []
+for i in xrange(unique_value_counts):
+    timeStep_columnNames.extend(['time_diff_step_{}'.format(i), 'column_counts_step_{}'.format(i), 
+                                 'time_cost_step_{}'.format(i), 'first_column_step_{}'.format(i)])
+    column_name_columns.append('first_column_step_{}'.format(i))
+
+train_dat_TimeStep = train_dat_Norm.apply(getTimeSteps, axis=1)
+test_dat_TimeStep  = test_dat_Norm.apply(getTimeSteps, axis=1)
+train_dat_TimeStep.columns = timeStep_columnNames
+test_dat_TimeStep.columns  = timeStep_columnNames
+
+for column in column_name_columns:
+    train_dat_TimeStep[column].fillna('NaN', inplace=True)
+    test_dat_TimeStep[column].fillna('NaN', inplace=True)
+    train_dat_TimeStep[column] = encoder.transform(train_dat_TimeStep[column])
+    test_dat_TimeStep[column] = encoder.transform(test_dat_TimeStep[column])
+
+combined_train_dat = pd.concat([train_dat_Norm, train_dat_Basics, train_dat_TimeDiff, train_dat_TimeStep], axis=1)
+combined_test_dat  = pd.concat([test_dat_Norm, test_dat_Basics, test_dat_TimeDiff, test_dat_TimeStep], axis=1)
+print 'finish feature engineering date using {} minutes'.format(round((time.time() - start_time)/60, 2))
+
+remove_single_value_columns(combined_train_num)
+remove_single_value_columns(combined_train_dat)
+
+combined_train = pd.concat([combined_train_num, combined_train_dat, combined_train_cat], axis=1)
+combined_train.to_csv('bosch_FE_raw_train_data_regular.csv')
+combined_test = pd.concat([combined_test_num, combined_test_dat, combined_test_cat], axis=1)
+combined_test.to_csv('bosch_FE_raw_test_data_regular.csv')
