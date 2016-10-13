@@ -44,20 +44,26 @@ remove_single_value_columns(train_num, 'Response', test=test_num)
 remove_single_value_columns(train_dat, test=test_dat)
 
 #### numerical feature engineering work
+start_time = time.time()
 train_num_Basics = NumericalFeatureEngineering(train_num)
 test_num_Basics = NumericalFeatureEngineering(test_num)
 
 combined_train_num = pd.concat([train_num, train_num_Basics], axis=1)
 combined_test_num  = pd.concat([test_num, test_num_Basics], axis=1)                                                                            
+print 'finish generating numercail features and new dataset using {} minutes'.format(round((time.time()-start_time)/60, 2))
 print 'combined train numerical feature shape: {}, combined test numerical features shape: {}'.format(combined_train_num.shape, combined_test_num.shape)
 
 ## basic features from tmp_train_dat
+start_time = time.time()
 train_dat_Basics = BasicDate_FeatureEngineering(train_dat)
 test_dat_Basics  = BasicDate_FeatureEngineering(test_dat)
+print 'finish generating basic date features using {} minutes'.format(round((time.time()-start_time)/60, 2))
 
 ## normalized date columns
+start_time = time.time()
 train_dat_Norm = train_dat.apply(getRelativeTimeColumns, axis=1)
 test_dat_Norm  = test_dat.apply(getRelativeTimeColumns, axis=1)
+print 'finish generating normalized date features using {} minutes'.format(round((time.time()-start_time)/60, 2))
 
 ## remove single-valued columns
 remove_single_value_columns(train_dat_Norm, test=test_dat_Norm)
@@ -68,6 +74,7 @@ column_names.append('NaN')
 encoder.fit(column_names)
 
 ## TimeDiff features
+start_time = time.time()
 train_dat_TimeDiff = train_dat.apply(getTimeChangeColumns, axis=1)
 test_dat_TimeDiff  = test_dat.apply(getTimeChangeColumns, axis=1)
 TimeDiff_ColumnNames = ['time_diff_start_col', 'time_diff_end_col', 'time_diff_value',
@@ -82,6 +89,7 @@ for column in ['time_diff_start_col', 'time_diff_end_col']:
     test_dat_TimeDiff[column].fillna('NaN', inplace=True)
     test_dat_TimeDiff[column] = encoder.transform(test_dat_TimeDiff[column])
 
+print 'finish generating date difference features using {} minutes'.format(round((time.time()-start_time)/60, 2))
 
 
 ## section to create timeStep features
@@ -105,23 +113,22 @@ for column in column_name_columns:
     test_dat_TimeStep[column].fillna('NaN', inplace=True)
     train_dat_TimeStep[column] = encoder.transform(train_dat_TimeStep[column])
     test_dat_TimeStep[column] = encoder.transform(test_dat_TimeStep[column])
+print 'finish generating date steps features using {} minutes'.format(round((time.time()-start_time)/60, 2))
 
-print 'finish generating TimeStep features using {} seconds'.format(round(time.time() - start_time, 0))
 
+## combine all the date features together
+combined_train_dat = pd.concat([train_dat_Norm, train_dat_Basics, train_dat_TimeDiff, train_dat_TimeStep], axis=1)
+combined_test_dat  = pd.concat([test_dat_Norm, test_dat_Basics, test_dat_TimeDiff, test_dat_TimeStep], axis=1)
+print 'combined date shape:', combined_train_dat.shape, combined_test_dat.shape
 
 
 start_time = time.time()
-combined_train_dat = pd.concat([train_dat_Norm, train_dat_Basics, train_dat_TimeDiff, train_dat_TimeStep], axis=1)
-combined_test_dat  = pd.concat([test_dat_Norm, test_dat_Basics, test_dat_TimeDiff, test_dat_TimeStep], axis=1)                                                                                                                                                 
-print combined_train_dat.shape, combined_test_dat.shape
-print 'finish feature engineering date using {} minutes'.format(round((time.time() - start_time)/60, 2))
-
-
-
 train_test_datIndex_features = build_IndexFeatures(combined_train_dat, combined_test_dat)
+print 'finish index feature generation using {} minutes'.format(round((time.time() - start_time)/60, 2))
 
+start_time = time.time()
 combined_train = pd.concat([combined_train_num, combined_train_dat, train_test_datIndex_features.ix[combined_train_num.index, :]], axis=1)
 combined_test  = pd.concat([combined_test_num,  combined_test_dat,  train_test_datIndex_features.ix[combined_test_num.index, :]], axis=1)
 combined_train.to_csv('FE_raw_train_num_dat_data.csv') 
 combined_test.to_csv('FE_raw_test_num_dat_data.csv') 
-
+print 'finish writing datea into csv files using {} minutes'.format(round((time.time() - start_time)/60, 2))
