@@ -179,6 +179,27 @@ def getTimeChangeColumns(series):
 
     
 
+def build_IndexFeatures(combined_train_dat):
+    dat_new_fea = pd.DataFrame()
+    dat_new_fea['first_time_index']  = combined_train_dat['first_time_value'].argsort() + 1
+    dat_new_fea['last_time_index']   = combined_train_dat['last_time_value'].argsort() + 1
+    dat_new_fea['index_ratio']       = dat_new_fea['first_time_index'] / dat_new_fea['last_time_index']
+    dat_new_fea['index']             = combined_train_dat.index
+
+    if 'start_time' in combined_train_dat.columns:
+        dat_new_fea['start_time_diff']          = combined_train_dat['start_time'].diff()
+        dat_new_fea['start_time_index']         = combined_train_dat['start_time'].argsort() + 1
+        dat_new_fea['start_time_index_ratio_1'] = dat_new_fea['first_time_index'] / dat_new_fea['index']
+        dat_new_fea['start_time_index_ratio_2'] = dat_new_fea['last_time_index'] / dat_new_fea['index']
+    
+    dat_new_fea['time_ratio_value_index']    = combined_train_dat['time_ratio_value'].argsort() + 1
+    dat_new_fea['first_time_value_index']    = combined_train_dat['first_time_value'].argsort() + 1
+    dat_new_fea['first_date_value_index']    = combined_train_dat['first_date_value'].argsort() + 1
+    dat_new_fea['first_date_value_index_ratio_1'] = dat_new_fea['first_time_index'] / dat_new_fea['index']
+    dat_new_fea['first_date_value_index_ratio_2'] = dat_new_fea['last_time_index'] / dat_new_fea['index']
+
+    return dat_new_fea
+
 
 
 ### section to prepare the raw data, whether separate them by the start_time
@@ -217,6 +238,11 @@ print 'dat shape: {}, num shape: {}, cat shape: {}'.format(train_dat.shape, trai
 #tmp_train_dat = train_dat
 #tmp_train_cat = train_cat
 
+encoder = preprocessing.LabelEncoder()
+cat_column_names = train_cat.columns.tolist()
+cat_column_names.append('NaN')
+encoder.fit(cat_column_names)
+
 remove_single_value_columns(train_cat)
 remove_single_value_columns(train_num)
 remove_single_value_columns(train_dat)
@@ -251,12 +277,8 @@ for level in sorted_level_list:
                                  'level_{}_end_column'.format(level)])
 
 ## assign new names to features
-levelFeatures.columns = cat_fea_names
-
-encoder = preprocessing.LabelEncoder()
-column_names = train_cat.columns.tolist()
-column_names.append('NaN')
-encoder.fit(column_names)
+train_levelFeatures.columns = cat_fea_names
+test_levelFeatures.columns = cat_fea_names
 
 for col in column_name_features:
     train_levelFeatures[col] = encoder.transform(train_levelFeatures[col]) 
@@ -334,7 +356,10 @@ print 'finish feature engineering date using {} minutes'.format(round((time.time
 remove_single_value_columns(combined_train_num)
 remove_single_value_columns(combined_train_dat)
 
-combined_train = pd.concat([combined_train_num, combined_train_dat, combined_train_cat], axis=1)
+train_datIndex_features = build_IndexFeatures(combined_train_dat)
+test_datIndex_features  = build_IndexFeatures(combined_test_dat)
+
+combined_train = pd.concat([combined_train_num, combined_train_dat, combined_train_cat, train_datIndex_features], axis=1)
 combined_train.to_csv('bosch_FE_raw_train_data_regular.csv')
-combined_test = pd.concat([combined_test_num, combined_test_dat, combined_test_cat], axis=1)
+combined_test = pd.concat([combined_test_num, combined_test_dat, combined_test_cat, test_datIndex_features], axis=1)
 combined_test.to_csv('bosch_FE_raw_test_data_regular.csv')
