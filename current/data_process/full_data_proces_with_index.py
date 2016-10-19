@@ -42,7 +42,7 @@ train_dat   = pd.read_csv(join(data_path, train_date_file),   index_col='Id')
 train_cat   = pd.read_csv(join(data_path, train_cat_file),   index_col='Id')
 test_num    = pd.read_csv(join(data_path, test_num_file),      index_col='Id')
 test_dat    = pd.read_csv(join(data_path, test_date_file),     index_col='Id')
-test_cat    = pd.read_csv(join(data_path, test_date_file),     index_col='Id')
+test_cat    = pd.read_csv(join(data_path, test_cat_file),     index_col='Id')
 
 '''
 num_rows = 50000
@@ -86,7 +86,7 @@ combined_train_station_dat = pd.concat([train_dat_stations, dat_station_index.ix
 combined_test_station_num = pd.concat([test_num_stations, num_station_index.ix[train_num_stations.index]], axis=1)
 combined_test_station_dat = pd.concat([test_dat_stations, dat_station_index.ix[train_dat_stations.index]], axis=1)
 
-print 'finish feature engineering staiont features using {} minutes'.format(round((time.time() - start_time)/60, 2))
+print 'finish feature engineering station-based features using {} minutes'.format(round((time.time() - start_time)/60, 2))
 
 
 #### categorical features FE
