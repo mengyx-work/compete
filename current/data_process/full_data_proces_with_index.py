@@ -37,13 +37,13 @@ dep_var_name = 'Response'
 
 start_time = time.time()
 ## loading the data by using the skipped_row_num list
-'''
 train_num   = pd.read_csv(join(data_path, train_num_file),    index_col='Id')
 train_dat   = pd.read_csv(join(data_path, train_date_file),   index_col='Id')
 train_cat   = pd.read_csv(join(data_path, train_cat_file),   index_col='Id')
 test_num    = pd.read_csv(join(data_path, test_num_file),      index_col='Id')
 test_dat    = pd.read_csv(join(data_path, test_date_file),     index_col='Id')
 test_cat    = pd.read_csv(join(data_path, test_date_file),     index_col='Id')
+
 '''
 num_rows = 50000
 train_num = pd.read_csv(join(data_path, train_num_file),    index_col='Id', nrows=num_rows)
@@ -52,15 +52,19 @@ train_cat = pd.read_csv(join(data_path, train_cat_file),    index_col='Id', nrow
 test_num = pd.read_csv(join(data_path, test_num_file),      index_col='Id', nrows=num_rows)
 test_dat = pd.read_csv(join(data_path, test_date_file),     index_col='Id', nrows=num_rows)
 test_cat = pd.read_csv(join(data_path, test_cat_file),      index_col='Id', nrows=num_rows)
-
+'''
 
 print 'finish loading date using {} seconds'.format(round(time.time() - start_time, 0))
 
 remove_single_value_columns(train_num, 'Response', test=test_num)
 remove_single_value_columns(train_dat, test=test_dat)
+remove_single_value_columns(train_cat, test=test_cat)
 
 #### station-based feature engineering works
 ## create column dictionaries
+dat_columns = train_dat.columns.tolist()
+num_columns = train_num.columns.tolist()
+num_columns.remove(dep_var_name)
 dat_col_dict, dat_line_dict = build_column_dict(dat_columns)
 num_col_dict, num_line_dict = build_column_dict(num_columns)
 dat_col_dict.update(dat_line_dict)
