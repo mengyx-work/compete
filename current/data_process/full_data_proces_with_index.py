@@ -1,4 +1,4 @@
-import os, sys, time
+import os, sys, time, gc
 import pandas as pd
 import numpy as np
 from os.path import join
@@ -86,6 +86,9 @@ combined_train_station_dat = pd.concat([train_dat_stations, dat_station_index.ix
 combined_test_station_num = pd.concat([test_num_stations, num_station_index.ix[train_num_stations.index]], axis=1)
 combined_test_station_dat = pd.concat([test_dat_stations, dat_station_index.ix[train_dat_stations.index]], axis=1)
 
+del train_num_stations, num_station_index, train_dat_stations, dat_station_index
+del test_num_stations, num_station_index, test_dat_stations, dat_station_index
+gc.collect()
 print 'finish feature engineering station-based features using {} minutes'.format(round((time.time() - start_time)/60, 2))
 
 
@@ -101,6 +104,8 @@ test_cat_Basics  = BasicCat_FeatureEngineering(train_cat)
 
 combined_train_cat = pd.concat([train_cat, train_cat_Basics], axis=1)
 combined_test_cat  = pd.concat([test_cat, test_cat_Basics], axis=1)  
+del train_cat, train_cat_Basics, test_cat, test_cat_Basics
+gc.collect()
 print 'finish generating categorical features using {} seconds'.format(round(time.time() - start_time, 0))
 
 
@@ -111,7 +116,9 @@ test_num_Basics = NumericalFeatureEngineering(test_num)
 
 combined_train_num = pd.concat([train_num, train_num_Basics], axis=1)
 combined_test_num  = pd.concat([test_num, test_num_Basics], axis=1)                                                                            
-print 'finish generating numercail features and new dataset using {} minutes'.format(round((time.time()-start_time)/60, 2))
+del train_num, train_num_Basics, test_num, test_num_Basics
+gc.collect()
+print 'finish generating numerical features and new dataset using {} minutes'.format(round((time.time()-start_time)/60, 2))
 print 'combined train numerical feature shape: {}, combined test numerical features shape: {}'.format(combined_train_num.shape, combined_test_num.shape)
 
 
@@ -183,6 +190,9 @@ print 'finish generating date steps features using {} minutes'.format(round((tim
 ## combine all the date features together
 combined_train_dat = pd.concat([train_dat_Norm, train_dat_Basics, train_dat_TimeDiff, train_dat_TimeStep], axis=1)
 combined_test_dat  = pd.concat([test_dat_Norm, test_dat_Basics, test_dat_TimeDiff, test_dat_TimeStep], axis=1)
+del train_dat_Norm, train_dat_Basics, train_dat_TimeDiff, train_dat_TimeStep
+del test_dat_Norm, test_dat_Basics, test_dat_TimeDiff, test_dat_TimeStep
+gc.collect()
 print 'combined date shape:', combined_train_dat.shape, combined_test_dat.shape
 
 
