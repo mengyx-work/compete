@@ -38,7 +38,7 @@ test_num    = pd.read_csv(join(data_path, test_num_file),    index_col='Id')
 
 print 'finish loading date using {} seconds'.format(round(time.time() - start_time, 0))
 
-remove_single_value_columns(train_num, test = test_num)
+remove_single_value_columns(train_num, 'Response', test=test_num)
 
 #### numerical feature engineering work
 start_time = time.time()
