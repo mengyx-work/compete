@@ -14,7 +14,7 @@ from utils.validation_tools import score_MCC, MCC, create_validation_index
 from utils.models import CombinedModel
 from utils.data_munge import remove_single_value_columns
 from utils.feature_engineering import getRelativeTimeColumns, BasicDate_FeatureEngineering
-from utils.feature_engineering import getTimeChangeColumns, getTimeSteps
+from utils.feature_engineering import getTimeChangeColumns, getTimeSteps, build_IndexFeatures
 
 data_path = '/home/ymm/bosch/'
 
@@ -105,10 +105,21 @@ print 'finish generating date steps features using {} minutes'.format(round((tim
 
 
 ## combine all the date features together
-combined_train = pd.concat([train_dat_Norm, train_dat_Basics, train_dat_TimeDiff, train_dat_TimeStep], axis=1)
-combined_test  = pd.concat([test_dat_Norm, test_dat_Basics, test_dat_TimeDiff, test_dat_TimeStep], axis=1)
-print 'combined date shape:', combined_train.shape, combined_test.shape
+combined_train_dat = pd.concat([train_dat_Norm, train_dat_Basics, train_dat_TimeDiff, train_dat_TimeStep], axis=1)
+combined_test_dat  = pd.concat([test_dat_Norm, test_dat_Basics, test_dat_TimeDiff, test_dat_TimeStep], axis=1)
+del train_dat_Norm, train_dat_Basics, train_dat_TimeDiff, train_dat_TimeStep
+del test_dat_Norm, test_dat_Basics, test_dat_TimeDiff, test_dat_TimeStep
+gc.collect()
+print 'combined date shape:', combined_train_dat.shape, combined_test_dat.shape
 
+
+start_time = time.time()
+train_test_datIndex_features = build_IndexFeatures(combined_train_dat, combined_test_dat)
+print 'finish index feature generation using {} minutes'.format(round((time.time() - start_time)/60, 2))
+
+start_time = time.time()
+combined_train = pd.concat([combined_train_dat, train_test_datIndex_features.ix[combined_train_dat.index, :]], axis=1)
+combined_test  = pd.concat([combined_test_dat,  train_test_datIndex_features.ix[combined_test_dat.index, :]], axis=1)
 
 
 start_time = time.time()
