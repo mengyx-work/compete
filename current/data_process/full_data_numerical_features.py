@@ -48,7 +48,7 @@ test_num_Basics = NumericalFeatureEngineering(test_num)
 combined_train = pd.concat([train_num, train_num_Basics], axis=1)
 combined_test  = pd.concat([test_num, test_num_Basics], axis=1)                                                                            
 print 'finish generating numerical features and new dataset using {} minutes'.format(round((time.time()-start_time)/60, 2))
-print 'combined train numerical feature shape: {}, combined test numerical features shape: {}'.format(combined_train_num.shape, combined_test_num.shape)
+print 'combined train numerical feature shape: {}, combined test numerical features shape: {}'.format(combined_train.shape, combined_test.shape)
 
 
 start_time = time.time()
