@@ -87,7 +87,7 @@ combined_test_station_num = pd.concat([test_num_stations, num_station_index.ix[t
 combined_test_station_dat = pd.concat([test_dat_stations, dat_station_index.ix[train_dat_stations.index]], axis=1)
 
 del train_num_stations, num_station_index, train_dat_stations, dat_station_index
-del test_num_stations, num_station_index, test_dat_stations, dat_station_index
+del test_num_stations, test_dat_stations
 gc.collect()
 print 'finish feature engineering station-based features using {} minutes'.format(round((time.time() - start_time)/60, 2))
 
