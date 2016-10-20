@@ -57,7 +57,7 @@ test_cat_Basics  = BasicCat_FeatureEngineering(train_cat)
 
 combined_train = pd.concat([train_cat, train_cat_Basics], axis=1)
 combined_test  = pd.concat([test_cat, test_cat_Basics], axis=1)  
-print 'finish generating categorical features using {} seconds'.format(round(time.time() - start_time, 0))
+print 'finish generating categorical features using {} minutes'.format(round((time.time() - start_time)/60, 0))
 
 start_time = time.time()
 combined_train.to_csv('bosch_train_categorical_features.csv') 
