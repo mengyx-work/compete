@@ -42,16 +42,6 @@ train_dat   = pd.read_csv(join(data_path, train_date_file),   index_col='Id')
 test_num    = pd.read_csv(join(data_path, test_num_file),      index_col='Id')
 test_dat    = pd.read_csv(join(data_path, test_date_file),     index_col='Id')
 
-'''
-num_rows = 50000
-train_num = pd.read_csv(join(data_path, train_num_file),    index_col='Id', nrows=num_rows)
-train_dat = pd.read_csv(join(data_path, train_date_file),   index_col='Id', nrows=num_rows)
-train_cat = pd.read_csv(join(data_path, train_cat_file),    index_col='Id', nrows=num_rows)
-test_num = pd.read_csv(join(data_path, test_num_file),      index_col='Id', nrows=num_rows)
-test_dat = pd.read_csv(join(data_path, test_date_file),     index_col='Id', nrows=num_rows)
-test_cat = pd.read_csv(join(data_path, test_cat_file),      index_col='Id', nrows=num_rows)
-'''
-
 print 'finish loading date using {} seconds'.format(round(time.time() - start_time, 0))
 
 remove_single_value_columns(train_num, 'Response', test=test_num)
@@ -80,8 +70,8 @@ dat_station_index = build_station_index_features(train_dat_stations, test_dat_st
 combined_train_station_num = pd.concat([train_num_stations, num_station_index.ix[train_num_stations.index]], axis=1)
 combined_train_station_dat = pd.concat([train_dat_stations, dat_station_index.ix[train_dat_stations.index]], axis=1)
 
-combined_test_station_num = pd.concat([test_num_stations, num_station_index.ix[train_num_stations.index]], axis=1)
-combined_test_station_dat = pd.concat([test_dat_stations, dat_station_index.ix[train_dat_stations.index]], axis=1)
+combined_test_station_num = pd.concat([test_num_stations, num_station_index.ix[test_num_stations.index]], axis=1)
+combined_test_station_dat = pd.concat([test_dat_stations, dat_station_index.ix[test_dat_stations.index]], axis=1)
 
 combined_train = pd.concat([combined_train_station_dat, combined_train_station_num], axis=1)
 combined_test  = pd.concat([combined_test_station_dat,  combined_test_station_num],  axis=1) 
