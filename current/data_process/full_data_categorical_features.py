@@ -49,11 +49,11 @@ remove_single_value_columns(train_cat, test = test_cat)
 start_time = time.time()
 
 train_cat['Response'] = train_num['Response']
-encode_categorical_by_dep_var(train_cat, test_cat)
+encode_categorical_by_dep_var(train_cat, test_cat, dep_var_column='Response', fill_missing=False)
 train_cat.drop('Response', axis=1, inplace=True)
 
 train_cat_Basics = BasicCat_FeatureEngineering(train_cat)
-test_cat_Basics  = BasicCat_FeatureEngineering(train_cat)
+test_cat_Basics  = BasicCat_FeatureEngineering(test_cat)
 
 combined_train = pd.concat([train_cat, train_cat_Basics], axis=1)
 combined_test  = pd.concat([test_cat, test_cat_Basics], axis=1)  
