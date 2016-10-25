@@ -20,6 +20,12 @@ from utils.feature_engineering import build_column_dict, build_station_features,
 ## categorical fetures related
 from utils.feature_engineering import BasicCat_FeatureEngineering, encode_categorical_by_dep_var
 
+'''
+this is a script to process Bosch (Kaggle) data by data types.
+date, numerical, categorical and station-based data are processed
+and combine together.
+'''
+
 data_path = '/home/ymm/bosch/'
 
 train_num_file   = 'train_numeric.csv'
@@ -96,7 +102,7 @@ print 'finish feature engineering station-based features using {} minutes'.forma
 start_time = time.time()
 
 train_cat['Response'] = train_num['Response']
-encode_categorical_by_dep_var(train_cat, test_cat)
+encode_columns_dict = encode_categorical_by_dep_var(train_cat, test_cat)
 train_cat.drop('Response', axis=1, inplace=True)
 
 train_cat_Basics = BasicCat_FeatureEngineering(train_cat)
