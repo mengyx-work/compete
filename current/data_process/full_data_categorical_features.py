@@ -49,7 +49,7 @@ remove_single_value_columns(train_cat, test = test_cat)
 start_time = time.time()
 
 train_cat['Response'] = train_num['Response']
-encode_categorical_by_dep_var(train_cat, test_cat, dep_var_column='Response', fill_missing=False)
+encode_columns_dict = encode_categorical_by_dep_var(train_cat, test_cat, dep_var_column='Response', fill_missing=False)
 train_cat.drop('Response', axis=1, inplace=True)
 
 train_cat_Basics = BasicCat_FeatureEngineering(train_cat)
